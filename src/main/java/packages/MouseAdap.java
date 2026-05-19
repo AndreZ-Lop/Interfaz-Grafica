@@ -16,17 +16,18 @@ public class MouseAdap extends MouseAdapter {
        Component componente = (Component)evento.getSource();
        String nombre = componente.getName();
        String opcion = nombre.substring(nombre.length()-2,nombre.length());
+       mensaje.setBackground(Color.red);
        mensaje.setText(opcion);
    }
    @Override
    public void mouseEntered(MouseEvent evento){
        Component componente = (Component)evento.getSource();
-       componente.setBackground(Color.red);
+       componente.setBackground(Color.blue);
    }
    
    @Override
    public void mouseExited(MouseEvent evento){
        Component componente = (Component)evento.getSource();
-       componente.setBackground(Color.orange);
+       componente.setBackground(Color.white);
    }
 }

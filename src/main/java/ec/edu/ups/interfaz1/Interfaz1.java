@@ -9,6 +9,7 @@ import packages.WindowLis;
 import packages.InterrupcionesDeAccion;
 import packages.InterrupcionesDeEnfoque;
 import packages.InterrupcionesDeElemento;
+import packages.BotonSalida;
 
 public class Interfaz1 {
     public static void main(String[] args) {
@@ -163,26 +164,33 @@ public class Interfaz1 {
        nuevaVentana10.add(botonPanel);
        nuevaVentana10.setVisible(false);
        
-       //Eventos Mouse Adapates
-        int NUM_OPCIONES = 12;
-        Label mensaje = new Label("Mensaje asociado al botón pulsado");
-        Button[] botones = new Button[NUM_OPCIONES];
-        for (int i = 0; i < NUM_OPCIONES; i++) {
-            botones[i] = new Button("Opcion " + i);
-            if (i < 10) {
-            botones[i].setName("0" + i);
-            } else {
-            botones[i].setName(String.valueOf(i));
-            }
+       //Eventos Mouse Adapater
+       WindowLis cierre = new WindowLis();
+       int NUM_OPCIONES = 12;
+       Label mensaje = new Label("Mensaje asociado al botón pulsado",Label.CENTER);
+       Button[] botones = new Button[NUM_OPCIONES];
+       
+       for (int i = 0; i < NUM_OPCIONES; i++) {
+           botones[i] = new Button("Opcion " + i);
+           if (i < 10)
+               botones[i].setName("0" + i);
+           else 
+               botones[i].setName(String.valueOf(i));
         }
+       
+       
         Frame miVentana = new Frame("Prueba eventos de raton");
-        Panel panelPrincipal = new Panel(new GridLayout(NUM_OPCIONES + 1, 1));
+        Panel panelPrincipal = new Panel(new GridLayout(NUM_OPCIONES + 2, 1));
         panelPrincipal.add(mensaje);
         for (int i = 0; i < NUM_OPCIONES; i++) {
             panelPrincipal.add(botones[i]);
         }
+        Button botonSalida = new Button("Salida");
+        botonSalida.addMouseListener(new BotonSalida());
+        panelPrincipal.add(botonSalida);
         miVentana.add(panelPrincipal);
         miVentana.setSize(400, 600);
+        miVentana.addWindowListener(cierre);
         miVentana.setVisible(false);
         for (int i = 0; i < NUM_OPCIONES; i++) {
             botones[i].addMouseListener(new MouseAdap(mensaje));
@@ -193,7 +201,7 @@ public class Interfaz1 {
         Label mensaje1= new Label("Presione una tecla",Label.CENTER);
         Label mensaje2 = new Label("tecla presionada",Label.CENTER);
         
-        nuevaVentana11.setLayout(new BorderLayout());
+        Panel general = new Panel(new BorderLayout());
         
         Panel panelSuperior = new Panel();
         Panel panelInferior = new Panel();
@@ -203,10 +211,16 @@ public class Interfaz1 {
         KeyAdd detectorTeclado = new KeyAdd(mensaje2);
         nuevaVentana11.addKeyListener(detectorTeclado);
         
-        nuevaVentana11.add(panelSuperior,BorderLayout.NORTH);
-        nuevaVentana11.add(panelInferior,BorderLayout.CENTER);
+        general.add(panelSuperior,BorderLayout.NORTH);
+        general.add(panelInferior,BorderLayout.CENTER);
         
-        nuevaVentana11.setVisible(false);
+        WindowLis funcion = new WindowLis();
+        
+        nuevaVentana11.add(general);
+        
+        nuevaVentana11.addWindowListener(funcion);
+        
+        nuevaVentana11.setVisible(true);
         
         //Window Listener
         Frame miVentana3 = new Frame("Prueba eventos de ventana");
@@ -336,7 +350,7 @@ public class Interfaz1 {
         
         ejercicio.add(panelEjercicio);
         
-        ejercicio.setVisible(true);
+        ejercicio.setVisible(false);
         
         
     }
